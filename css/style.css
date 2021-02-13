@@ -1,0 +1,75 @@
+body {
+    width: 900px;
+    margin: 20px auto;
+    border: 1px solid;
+    padding: 8px;
+}
+hr {
+    margin: 4px 0;
+}
+button {
+    margin: 0 4px;
+    cursor: pointer;
+}
+
+textarea {
+    display: block;
+    width: 448px;
+    margin: 10px 0;
+    resize: none;
+    height: 130px;
+}
+
+input {
+    width: 450px;
+}
+
+
+section.layout {
+    display: flex;
+    flex-direction: row;
+    border-top: 1px solid black;
+    height: 450px;
+}
+
+section.alpha {
+    flex: 4;
+    border-right: 1px solid black;
+}
+
+section.alpha .headBand {
+    display: flex;
+    padding: 14px;
+    justify-content: space-between;
+}
+section.alpha #orderedBlogs {
+    line-height: 30px;
+    height: 360px;
+    overflow: auto;
+}
+
+
+
+section.romero {
+    flex: 6;
+}
+
+section.romero #welcome{
+    padding: 10px;
+
+}
+section.romero #newTemplate {
+    padding: 10px;
+}
+section.romero .blogDiv {
+    border: 1px dashed;
+    padding: 10px;
+    line-height: 30px;
+    margin: 8px;
+}
+
+section.romero .headHolder {
+    display: flex;
+    justify-content: space-evenly;
+}
+

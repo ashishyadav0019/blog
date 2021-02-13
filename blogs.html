@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+    <title>Blogs</title>
+    <meta charset="utf-8">
+    <link href=css/style.css rel=stylesheet>
+</head>
+<body>
+<h2>Blog Space</h2>
+<section class="layout">
+    <!--        index section start-->
+    <section class="alpha">
+        <div class="headBand">
+            <div>All Saved Blogs</div>
+            <button id="deleteAll" style="display: none;"> Delete All</button>
+            <button id="createNewBlog"> + New</button>
+        </div>
+        <hr>
+        <ol id="orderedBlogs"></ol>
+    </section>
+    <!--        index section end-->
+    <!--    view start-->
+    <section class="romero">
+            <section id="welcome">
+                <h3>Welcome to blog space</h3>
+                <p >You can Create / Edit / View blogs here </p>
+                <p>Select appropriate option from left panel</p>
+            </section>
+
+        <div id="viewTemplate" style="display: none;">
+        </div>
+        <div id="newTemplate" style="display: none;">
+            <h3>Create New Blog</h3>
+            <div>
+                Blog Title <input type="text" id="newBlogTitle">
+            </div>
+            <div>
+                Blog text
+                <div>
+                    <textArea id="newBlogText"></textArea>
+                </div>
+            </div>
+            <div>
+                <button id="saveNewbtn">Save</button>
+            </div>
+        </div>
+
+
+    </section>
+
+
+    <!--    view end-->
+</section>
+<script src="js/events.js"></script>
+<script src="js/constants/constants.js"></script>
+<script src="js/util/axios.js"></script>
+<!--adding axios locally to make api calls-->
+
+<script>
+  var blogItem = [];
+  window.addEventListener('load', function () {
+    axios.get(apiObj.listAllBlogs, {cache: true})
+      .then(function (res) {
+
+        if (res && res.data && res.data.length > 0) {
+          blogItem = res.data;
+          populateBlogs()
+        }
+
+      });
+  })
+  function populateBlogs() {
+    document.getElementById("orderedBlogs").innerHTML = ""
+    for (var i = 0; i < blogItem.length; i++) {
+      var li = document.createElement('LI');
+      var contentSpan = document.createElement('span');
+      var viewBtn = document.createElement('button');
+      var deleteButton = document.createElement('button');
+      li.id = "id_" + blogItem[i].id;
+      contentSpan.setAttribute("title", blogItem[i].title);
+      contentSpan.classList = "listItem";
+      contentSpan.innerHTML =
+        blogItem[i].title.length > 20 ? blogItem[i].title.substr(0,20) + "..." :
+        blogItem[i].title;
+      viewBtn.id = "edit_" + blogItem[i].id;
+      viewBtn.innerText = "VIEW";
+      deleteButton.id = "delete_" + blogItem[i].id;
+      deleteButton.innerText = "DELETE";
+      li.append(contentSpan);
+      li.append(viewBtn);
+      li.append(deleteButton);
+      viewBtn.addEventListener("click", viewItem.bind(this,blogItem[i]));
+      deleteButton.addEventListener("click", deleteItem.bind(this,blogItem[i]));
+      document.getElementById("orderedBlogs").append(li)
+    }
+    document.getElementById("deleteAll").style.display="block"
+  }
+</script>
+</body>
+</html>
